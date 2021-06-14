@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            table,th,td{
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <link rel="manifest" href="manifest.json">
+    <body style="background-color: rgb(80, 243, 255);">
+        <center>
+        <h1>Github Profile</h1>
+        <img src="github.png" style="width: 80px;height: 80px;"><br>
+        <input type="text" id="text_input">
+        <input type="button" onclick="gitdata()" value="get profile">
+            <div id='git_image'>
+                <img src="" alt="profile image" id="image">
+                <center>
+                <table id="tbl" style="display:none">
+                    <tr>
+                        <th>Github</th>
+                        <th>Details</th>
+                    </tr>
+                    <tr>
+                        <td>username</td>
+                        <td id="para"></td>
+                    </tr>
+                    <tr>
+                        <td>url</td>
+                        <td id="url"></td>
+                    </tr>
+                    <tr>
+                        <td>html_url</td>
+                        <td id="html_url"></td>
+                    </tr>
+                    <tr>
+                        <td>followers_url</td>
+                        <td id="followers_url"></td>
+                    </tr>
+                    <tr>
+                        <td>following_url</td>
+                        <td id="following_url"></td>
+                    </tr>
+                    <tr>
+                        <td>gists_url</td>
+                        <td id="gists_url"></td>
+                    </tr>
+                    <tr>
+                        <td>starred_url</td>
+                        <td id="starred_url"></td>
+                    </tr>
+                    <tr>
+                        <td>subscriptions_url</td>
+                        <td id="subscriptions_url"></td>
+                    </tr>
+                    <tr>
+                        <td>organizations_url</td>
+                        <td id="organizations_url"></td>
+                    </tr>
+                    <tr>
+                        <td>repos_url</td>
+                        <td id="repos_url"></td>
+                    </tr>
+                    <tr>
+                        <td>events_url</td>
+                        <td id="events_url"></td>
+                    </tr>
+                    <tr>
+                        <td>received_events_url</td>
+                        <td id="received_events_url"></td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td id="type"></td>
+                    </tr>
+                    <tr>
+                        <td>site_admin</td>
+                        <td id="site_admin"></td>
+                    </tr>
+                </table>
+            </center>
+            </div>
+        </center>
+                
+                  
+    </body>
+<script>
+    function gitdata(){
+
+    var url='https://api.github.com/users/'+document.getElementById('text_input').value;
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.avatar_url)
+        var im = document.getElementById("image");
+        im.setAttribute("src",data.avatar_url);
+        
+        if(document.getElementById("tbl").style.display == "none")
+            document.getElementById("tbl").style.display = "block"
+        else
+            document.getElementById("tbl").style.display = "none"
+
+        document.getElementById('para').innerHTML=data.login;  
+        document.getElementById('url').innerHTML=data.url;
+        document.getElementById('html_url').innerHTML=data.html_url;
+        document.getElementById('followers_url').innerHTML=data.followers_url;
+        document.getElementById('following_url').innerHTML=data.following_url;
+        document.getElementById('gists_url').innerHTML=data.gists_url;
+        document.getElementById('starred_url').innerHTML=data.starred_url;
+        document.getElementById('subscriptions_url').innerHTML=data.subscriptions_url;
+        document.getElementById('organizations_url').innerHTML=data.organizations_url;
+        document.getElementById('repos_url').innerHTML=data.repos_url;
+        document.getElementById('events_url').innerHTML=data.events_url;
+        document.getElementById('received_events_url').innerHTML=data.received_events_url;
+        document.getElementById('type').innerHTML=data.type;
+        document.getElementById('site_admin').innerHTML=data.site_admin;
+
+    })
+
+    .catch(function(response){
+        return response.status;
+        console.log(response.status);
+    });;
+    
+}
+</script>
+</html>
